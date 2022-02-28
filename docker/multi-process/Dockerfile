@@ -1,5 +1,12 @@
 FROM ubuntu:18.04
-
+RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+     && apt-get clean \
+     && apt-get update \
+     && apt-get upgrade \
+     && apt-get -f install \
+     && apt update && apt install -y  ruby-dev \
+     && gem update --system 3.0.6
+     
 COPY docker/scripts/prepare /scripts/
 RUN /scripts/prepare
 

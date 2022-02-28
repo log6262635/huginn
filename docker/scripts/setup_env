@@ -20,7 +20,8 @@ fi
 if [[ -n "$DATABASE_URL" ]]; then
     case "${DATABASE_URL%%://*}" in
         mysql)
-            DATABASE_ADAPTER=mysql2 ;;
+            DATABASE_ADAPTER=mysql2
+            DATABASE_URL="$DATABASE_ADAPTER${DATABASE_URL#mysql}" ;;
         postgres)
             DATABASE_ADAPTER=postgresql ;;
         *)
@@ -138,7 +139,9 @@ case "${DATABASE_ADAPTER}" in
   *) echo "Unsupported database adapter. Available adapters are mysql2, and postgresql." && exit 1 ;;
 esac
 
-bundle install --without test development --path vendor/bundle
+bundle config set --local path vendor/bundle
+bundle config set --local without 'test development'
+bundle install
 
 # Configure the unicorn server
 sed -r config/unicorn.rb.example \

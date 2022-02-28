@@ -4,9 +4,18 @@ RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list 
      && apt-get update \
      && apt-get upgrade \
      && apt-get -f install \
+     && ap-get libterm-readkey-perl -y \
      && apt update && apt install -y  ruby-dev \
-     && gem update --system \
-     && libterm-readkey-perl -y
+     && gem update --system 
+     
+#      FROM ubuntu:20.04
+#      RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+#      && apt-get clean \
+#      && apt-get update \
+#      && apt-get upgrade \
+#      && apt-get libterm-readkey-perl -y \
+#      && apt-get install ruby \
+#      && gem update --system 3.0.8 
      
 COPY docker/scripts/prepare /scripts/
 RUN /scripts/prepare

@@ -3,6 +3,8 @@ RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list 
      && apt-get clean \
      && apt-get update \
      && apt-get upgrade \
+     && apt install ruby \
+     && gem update --system 3.0.8 \
      && libterm-readkey-perl -y
      
 COPY docker/scripts/prepare /scripts/

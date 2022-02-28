@@ -2,7 +2,8 @@ FROM ubuntu:20.04
 RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
      && apt-get clean \
      && apt-get update \
-     && apt-get upgrade 
+     && apt-get upgrade \
+     && libterm-readkey-perl -y
      
 COPY docker/scripts/prepare /scripts/
 RUN /scripts/prepare

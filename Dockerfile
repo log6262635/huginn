@@ -5,7 +5,14 @@ RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list 
      && apt-get upgrade -y \
      && apt-get install sudo -y \
      && sudo apt-get install -y runit build-essential git zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate python-docutils pkg-config cmake nodejs graphviz jq \
-     && sudo apt-get install -y runit-systemd
+     && sudo apt-get install -y runit-systemd \
+     && sudo apt-get remove -y ruby1.8 ruby1.9 \
+     && mkdir /tmp/ruby && cd /tmp/ruby \
+     && curl -L --progress-bar https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.9.tar.bz2 | tar xj \
+     && cd ruby-2.6.9 \
+     && ./configure --disable-install-rdoc \
+     && make -j`nproc` \
+     && sudo make install \
      
 COPY docker/scripts/prepare /scripts/
 RUN /scripts/prepare

@@ -1,11 +1,11 @@
 FROM ubuntu:18.04
 RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
      && apt-get clean \
-     && apt-get update \
-     && apt-get upgrade \
-     && apt-get -f install \
-     && apt update && apt install -y  ruby-dev \
-     && gem update --system 
+     && apt-get update -y \
+     && apt-get upgrade -y \
+     && apt-get install sudo -y \
+     && sudo apt-get install -y runit build-essential git zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate python-docutils pkg-config cmake nodejs graphviz jq \
+     && sudo apt-get install -y runit-systemd
      
 COPY docker/scripts/prepare /scripts/
 RUN /scripts/prepare

@@ -1,5 +1,6 @@
 FROM debian:bullseye
 RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+     && python-docutils \
      && apt-get update -y \
      && apt-get upgrade -y \
      && apt-get install sudo -y \
